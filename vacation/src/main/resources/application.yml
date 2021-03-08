@@ -1,0 +1,32 @@
+server:
+  port: 8070
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/vacation?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update #create update none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
+#            client-id: 707018033376-dl9sl0vuon3ifvdra73qvnrbfcfdo98s.apps.googleusercontent.com
+#            client-secret: qaC_yHa3ng2TU7aBceSAH6Au
+#            scope:
+#            - email
+#            - profile
