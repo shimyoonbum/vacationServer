@@ -8,22 +8,20 @@ server:
       force: true
       
 spring:
+  jackson:    serialization:      fail-on-empty-beans: false
   devtools: 
     livereload: 
       enabled: true 
     restart: 
-      enabled: false #운영 에서는 제거.
-      
+      enabled: false #운영 에서는 제거.      
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sys?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/vacation?serverTimezone=Asia/Seoul
     username: shim
     password: 1234
   jpa:
     hibernate:
-      ddl-auto: update #create update none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop #create update none
     show-sql: true
 #  security:
 #    oauth2:

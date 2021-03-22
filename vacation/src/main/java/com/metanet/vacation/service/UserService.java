@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.vacation.dto.UserDto;
 import com.metanet.vacation.jwt.JwtTokenProvider;
+import com.metanet.vacation.model.Account;
 import com.metanet.vacation.model.Authority;
-import com.metanet.vacation.model.User;
 import com.metanet.vacation.repository.UserRepository;
 import com.metanet.vacation.util.SecurityUtil;
 
@@ -25,7 +25,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public User signup(UserDto userDto) {
+    public Account signup(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
@@ -35,7 +35,8 @@ public class UserService {
                 .authorityName("ROLE_USER")
                 .build();
 
-        User user = User.builder()
+        Account user = Account.builder()
+                .Id(userDto.getId())
                 .username(userDto.getUsername())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .authorities(Collections.singleton(authority))
@@ -46,17 +47,17 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthorities(String username) {
+    public Optional<Account> getUserWithAuthorities(String username) {
         return userRepository.findOneWithAuthoritiesByUsername(username);
     }
 
     @Transactional(readOnly = true)
-    public Optional<User> getMyUserWithAuthorities() {
+    public Optional<Account> getMyUserWithAuthorities() {
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername);
     }
     
     @Transactional(readOnly = true)
-	public List<User> getUserInfo() {
+	public List<Account> getUserInfo() {
     	return userRepository.findAll();
 	}
 }

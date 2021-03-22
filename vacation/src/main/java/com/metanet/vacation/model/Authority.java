@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "authority")
+@Table(name = "tb_authority")
 @Getter
 @Setter
 @Builder
