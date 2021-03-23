@@ -29,7 +29,7 @@ public class SecurityUtil {
          username = springSecurityUser.getUsername();
       } else if (authentication.getPrincipal() instanceof String) {
          username = (String) authentication.getPrincipal();
-      }
+      }      
 
       return Optional.ofNullable(username);
    }

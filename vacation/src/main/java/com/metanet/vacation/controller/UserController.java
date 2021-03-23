@@ -32,7 +32,7 @@ public class UserController {
 		return ResponseEntity.ok(userService.signup(userDto));
 	}
 	
-	@GetMapping("/get")
+	@GetMapping("/getUserInfo")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")
 	public ResponseEntity<?> getUserInfo() {
 		return ResponseEntity.ok(userService.getUserInfo());

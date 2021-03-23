@@ -19,6 +19,9 @@ spring:
     url: jdbc:mysql://localhost:3306/vacation?serverTimezone=Asia/Seoul
     username: shim
     password: 1234
+    data: classpath:data.sql
+    initialization-mode: always
+    sql-script-encoding: UTF-8
   jpa:
     hibernate:
       ddl-auto: create-drop #create update none

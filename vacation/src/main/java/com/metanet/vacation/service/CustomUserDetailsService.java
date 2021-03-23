@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.vacation.model.Account;
-import com.metanet.vacation.repository.UserRepository;
+import com.metanet.vacation.repository.AccountRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
-   private final UserRepository userRepository;
+   private final AccountRepository userRepository;
 
-   public CustomUserDetailsService(UserRepository userRepository) {
+   public CustomUserDetailsService(AccountRepository userRepository) {
       this.userRepository = userRepository;
    }
 

@@ -46,7 +46,7 @@ public class Account {
 	
 	@OneToOne
 	@JoinColumn(name = "empCode")
-	private Employee empCode;
+	private Employee employee;
 
 	@ManyToMany
 	@JoinTable(name = "user_authority", joinColumns = {

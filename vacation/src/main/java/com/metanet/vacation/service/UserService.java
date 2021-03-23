@@ -1,5 +1,7 @@
 package com.metanet.vacation.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,7 +11,9 @@ import com.metanet.vacation.dto.UserDto;
 import com.metanet.vacation.jwt.JwtTokenProvider;
 import com.metanet.vacation.model.Account;
 import com.metanet.vacation.model.Authority;
-import com.metanet.vacation.repository.UserRepository;
+import com.metanet.vacation.model.Employee;
+import com.metanet.vacation.repository.AccountRepository;
+import com.metanet.vacation.repository.EmployeeRepository;
 import com.metanet.vacation.util.SecurityUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -21,12 +25,15 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
+    private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    
     @Transactional
     public Account signup(UserDto userDto) {
-        if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
+        if (accountRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
 
@@ -43,21 +50,21 @@ public class UserService {
                 .activated(true)
                 .build();
 
-        return userRepository.save(user);
+        return accountRepository.save(user);
     }
 
     @Transactional(readOnly = true)
     public Optional<Account> getUserWithAuthorities(String username) {
-        return userRepository.findOneWithAuthoritiesByUsername(username);
+        return accountRepository.findOneWithAuthoritiesByUsername(username);
     }
 
     @Transactional(readOnly = true)
     public Optional<Account> getMyUserWithAuthorities() {
-        return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername);
+    	return SecurityUtil.getCurrentUsername().flatMap(accountRepository::findOneWithAuthoritiesByUsername);
     }
     
     @Transactional(readOnly = true)
 	public List<Account> getUserInfo() {
-    	return userRepository.findAll();
+    	return accountRepository.findAll();
 	}
 }
