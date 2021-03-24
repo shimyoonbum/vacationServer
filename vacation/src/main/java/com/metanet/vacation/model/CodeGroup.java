@@ -1,9 +1,11 @@
 package com.metanet.vacation.model;
 
-import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,20 +20,18 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+//@JsonIdentityInfo(generator = IntSequenceGenerator.class, property = "id") // 추가
 public class CodeGroup {
 
+	@JsonIgnore
 	@Id	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "group_id", unique = true)
-	private Long groupId;	// 코드 그룹
-	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "code_group")
-	private Set<Code> code;	// 코드 그룹	
-	
-	@Column(name = "group_code")
-	private String groupCode;	
+	@Column(name = "group_code", unique = true, nullable = false)
+	private String groupCode;	// 그룹코드 		
 	
 	@Column(name = "group_name")
-	private String groupName;	
+	private String groupName;	// 그룹코드 이름
+	
+//	@OneToMany(mappedBy = "codeGroup")
+//	@JsonIgnoreProperties({"codeGroup"})
+//	private List<Code> code;	// 코드 그룹 조인			
 }

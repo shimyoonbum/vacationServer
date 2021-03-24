@@ -11,9 +11,13 @@ import com.metanet.vacation.dto.UserDto;
 import com.metanet.vacation.jwt.JwtTokenProvider;
 import com.metanet.vacation.model.Account;
 import com.metanet.vacation.model.Authority;
+import com.metanet.vacation.model.Code;
 import com.metanet.vacation.model.Employee;
+import com.metanet.vacation.model.Register;
 import com.metanet.vacation.repository.AccountRepository;
+import com.metanet.vacation.repository.CodeRepository;
 import com.metanet.vacation.repository.EmployeeRepository;
+import com.metanet.vacation.repository.RegisterRepository;
 import com.metanet.vacation.util.SecurityUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,8 @@ import java.util.Optional;
 public class UserService {
     private final AccountRepository accountRepository;
     private final EmployeeRepository employeeRepository;
+    private final CodeRepository codeRepository;
+    private final RegisterRepository registerRepository;
     private final PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -43,7 +49,7 @@ public class UserService {
                 .build();
 
         Account user = Account.builder()
-                .Id(userDto.getId())
+                .id(userDto.getId())
                 .username(userDto.getUsername())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .authorities(Collections.singleton(authority))
@@ -66,5 +72,20 @@ public class UserService {
     @Transactional(readOnly = true)
 	public List<Account> getUserInfo() {
     	return accountRepository.findAll();
+	}
+    
+    @Transactional(readOnly = true)
+	public Optional<Code> getCode() {		
+		return codeRepository.findByCode("VK1");
+	}
+    
+//    @Transactional(readOnly = true)
+//	public Optional<Register> getRegister() {
+//		return registerRepository.findByApplyEmpCode("E0013");
+//	}
+    
+    @Transactional(readOnly = true)
+	public Object getEmpInfo() {		
+		return employeeRepository.findByEmpCode("E0013");
 	}
 }

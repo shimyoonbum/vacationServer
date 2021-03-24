@@ -27,11 +27,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
-	//아이디 코드
+
 	@JsonIgnore
 	@Id
-	@Column(name = "user_id", unique = true, nullable = false)
-	private String Id;
+	@Column(name = "user_id", nullable = false)
+	private String id; // 아이디 코드
 
 	@Column(name = "username", length = 50)
 	private String username;
@@ -42,16 +42,16 @@ public class Account {
 
 	@JsonIgnore
 	@Column(name = "activated")
-	private boolean activated;
-	
+	private boolean activated;// 활성 여부
+
 	@OneToOne
 	@JoinColumn(name = "empCode")
-	private Employee employee;
+	private Employee employee;// 사원 조인 컬럼
 
 	@ManyToMany
-	@JoinTable(name = "user_authority", joinColumns = {
-			@JoinColumn(name = "user_id", referencedColumnName = "user_id") }, inverseJoinColumns = {
-					@JoinColumn(name = "authority_name", referencedColumnName = "authority_name") })
+	@JoinTable(name = "tb_account_authority",
+			joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "user_id") }, 
+			inverseJoinColumns = { @JoinColumn(name = "authority_name", referencedColumnName = "authority_name") })
 	private Set<Authority> authorities;
 
 }

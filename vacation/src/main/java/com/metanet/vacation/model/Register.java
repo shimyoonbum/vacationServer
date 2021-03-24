@@ -4,12 +4,16 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,45 +27,48 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Register {
-	// 휴가신청 목록코드
+
+	@JsonIgnore
 	@Id
-	@Column(name = "reg_code")
-	private String regCode;
-	// 신청자코드
-	@Column(name = "apply_emp_code")
-	private String applyEmpCode;
-	// 승인자코드
-	@Column(name = "confirm_emp_code")
-	private String confirmEmpCode;
-	// 휴가신청일
-	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "reg_id", unique = true, nullable = false)
+	private Long id; 					// 휴가신청 목록코드
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
 	@Column(name = "reg_date")
-	private LocalDateTime regDate;
-	// 시작일
-	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="Asia/Seoul")
+	private LocalDateTime regDate;		// 휴가신청일
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(name = "reg_start_date")
-	private LocalDateTime regStartDate;
-	// 종료일
-	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="Asia/Seoul")
+	private LocalDateTime regStartDate;	// 시작일
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(name = "reg_end_date")
-	private LocalDateTime regEndDate;
-	// 휴가일수
+	private LocalDateTime regEndDate;	// 종료일
+
 	@Column(name = "reg_num")
-	private Double regNum;
-	// 휴가유형 코드
-	@Column(name = "vk_code")
-	private String vkCode;	
-	// 신청 사유
+	private Double regNum;				// 휴가일수
+	
 	@Column(name = "reg_reason")
-	private String regReason;	
-	// 휴가 승인 날짜
-	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
+	private String regReason; 			// 신청 사유	
+		
+	@Column(name = "confirm_emp_code")
+	private String confirmEmpCode;		// 승인자코드	
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
 	@Column(name = "confirm_date")
-	private String confirmDate;	
-	// 휴가승인 상태코드
-	@Column(name = "vs_code")
-	private String vsCode;	
-	// 반려 사유
+	private LocalDateTime confirmDate;			// 휴가 승인 날짜
+
 	@Column(name = "reject_reason")
-	private String rejectReason;
+	private String rejectReason;		// 반려 사유	
+	
+	@Column(name = "vk_code")
+	private String vkCode; 				// 휴가유형 코드	
+
+	@Column(name = "vs_code")
+	private String vsCode;				// 휴가승인 상태코드
+
+	@ManyToOne
+	@JoinColumn(name = "emp_code")
+	private Employee employee; // 코드 그룹 조인
 }

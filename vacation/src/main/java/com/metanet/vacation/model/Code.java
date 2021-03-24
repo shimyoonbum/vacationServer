@@ -1,17 +1,13 @@
 package com.metanet.vacation.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
+
+import lombok.*;
 
 @Entity
 @Table(name = "tb_code")
@@ -20,22 +16,24 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+//@JsonIdentityInfo(generator = IntSequenceGenerator.class, property = "id") // 추가
 public class Code {
-	
+
 	@Id	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "code_id", unique = true)
-	private Long codeId;	// 코드 그룹	
-	
 	@Column(unique = true)
 	private String code; // 코드
 
-	@Column(name = "code_group")
-	private String codeGroup;	// 코드 그룹
+	@OneToOne
+	@JoinColumn(name = "groupCode")
+	private CodeGroup codeGroup; // 코드 그룹 조인
 	
 	@Column(name = "code_name")
-	private String codeName;	
+	private String codeName;	//코드이름
 	
 	@Column(name = "code_value")
-	private String codeValue;
+	private String codeValue;	//코드값
+
+//	@ManyToOne
+//	@JoinColumn(name = "code_group")
+//	private CodeGroup codeGroup; // 코드 그룹 조인
 }

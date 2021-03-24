@@ -32,10 +32,28 @@ public class UserController {
 		return ResponseEntity.ok(userService.signup(userDto));
 	}
 	
+	@GetMapping("/getCode")
+	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	public ResponseEntity<?> getCode() {
+		return ResponseEntity.ok(userService.getCode().get());
+	}
+	
+//	@GetMapping("/getRegister")
+//	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+//	public ResponseEntity<?> getRegister() {
+//		return ResponseEntity.ok(userService.getRegister().get());
+//	}
+	
 	@GetMapping("/getUserInfo")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")
 	public ResponseEntity<?> getUserInfo() {
 		return ResponseEntity.ok(userService.getUserInfo());
+	}
+	
+	@GetMapping("/getEmpInfo")
+	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	public ResponseEntity<?> getEmpInfo() {
+		return ResponseEntity.ok(userService.getEmpInfo());
 	}
 	
 

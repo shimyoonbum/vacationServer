@@ -24,21 +24,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vacation {
-	// 사원 코드
+	
 	@JsonIgnore
 	@Id
-	@Column(name = "emp_code")
-	private String empCode;
-	// 발생연도
-	private String year;
-	// 발생일수
+	@Column(name = "emp_code", unique = true, nullable = false)
+	private String empCode;				// 사원 코드
+	
+	private String year;				// 발생연도
+	
 	@Column(name = "acq_days_num")
-	private Double acqDaysNum;
-	// 사용일수
+	private Double acqDaysNum;			// 발생일수
+	
 	@Column(name = "use_days_num")
-	private Double useDaysNum;
-	// 잔여일수
+	private Double useDaysNum;			// 사용일수
+	
 	@Column(name = "res_days_num")
-	private Double resDaysNum;	
+	private Double resDaysNum;			// 잔여일수
 	
 }
