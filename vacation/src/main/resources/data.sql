@@ -84,22 +84,22 @@ INSERT INTO vacation.tb_account_authority (user_id,authority_name) VALUES
 ,('ID0016','ROLE_USER');
 
 
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0001','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0002','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0003','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0004','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0005','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0006','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0007','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0008','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0009','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0010','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0011','2019',15,1,14);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0012','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0013','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0014','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0015','2019',15,0,15);
-INSERT INTO vacation.tb_vacation_management (EMP_CODE,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0016','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0001','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0002','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0003','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0004','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0005','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0006','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0007','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0008','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0009','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0010','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0011','2019',15,1,14);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0012','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0013','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0014','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0015','2019',15,0,15);
+INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0016','2019',15,0,15);
 
 INSERT INTO vacation.TB_VACATION_APPLY(emp_code,confirm_emp_code,reg_date,reg_start_date,reg_end_date,reg_num,vk_code,reg_reason,confirm_date,vs_code,reject_reason) VALUES ('E0011','E0004',TIMESTAMP '2020-12-20 16:29:09',TIMESTAMP '2020-12-08 00:00:00',TIMESTAMP '2020-12-08 00:00:00',1,'VK1','cv',TIMESTAMP '2020-12-20 16:34:09','VS2',NULL);
 INSERT INTO vacation.TB_VACATION_APPLY (emp_code,confirm_emp_code,reg_date,reg_start_date,reg_end_date,reg_num,vk_code,reg_reason,confirm_date,vs_code,reject_reason) VALUES ('E0010','E0008',TIMESTAMP '2020-11-10 11:25:57',TIMESTAMP '2020-01-15 00:00:00',TIMESTAMP '2020-01-20 00:00:00',NULL,'VK3','동생 결혼식 다녀오겠습니다.',NULL,'VS3','응 못가');

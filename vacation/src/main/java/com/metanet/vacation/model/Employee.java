@@ -49,8 +49,7 @@ public class Employee {
 	@JoinColumn(name = "orgCode")
 	private Organization organization;		// 조직코드
 	
-	@OneToOne
-	@JoinColumn(name = "empCode")
+	@OneToOne(mappedBy = "empCode")
 	private Vacation vacation;				// 휴가
 	
 	@OneToMany(mappedBy = "employee")

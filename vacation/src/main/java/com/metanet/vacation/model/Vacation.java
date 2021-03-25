@@ -1,5 +1,6 @@
 package com.metanet.vacation.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -23,12 +24,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vacation {
+public class Vacation implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@JsonIgnore
 	@Id
-	@Column(name = "emp_code", unique = true, nullable = false)
-	private String empCode;				// 사원 코드
+	@OneToOne
+	@JoinColumn(name = "emp_code", unique = true, nullable = false)
+	private Employee empCode;				// 사원 코드
 	
 	private String year;				// 발생연도
 	
