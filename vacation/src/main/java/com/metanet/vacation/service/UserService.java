@@ -85,7 +85,12 @@ public class UserService {
 //	}
     
     @Transactional(readOnly = true)
-	public Object getEmpInfo() {		
+	public Employee getEmpInfo() {		
 		return employeeRepository.findByEmpCode("E0013");
+	}
+    
+    @Transactional(readOnly = true)
+	public List<Employee> getMember() {
+    	return employeeRepository.findByEmpCodeOrEmpUpper("E0011", "E0011");
 	}
 }
