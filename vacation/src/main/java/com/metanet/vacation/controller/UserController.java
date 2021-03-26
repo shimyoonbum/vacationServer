@@ -21,13 +21,16 @@ import javax.validation.Valid;
 public class UserController {
 	
 	private final UserService userService;
-	
-	/*
+
+	@GetMapping("/hello")
+	public ResponseEntity<?> hello() {
+		return ResponseEntity.ok("hello");
+	}
+
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto) {
 		return ResponseEntity.ok(userService.signup(userDto));
 	}
-	*/
 	
 	@GetMapping("/getCode")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -66,9 +69,9 @@ public class UserController {
 		return ResponseEntity.ok(userService.getMyUserWithAuthorities().get());
 	}
 
-//	@GetMapping("/user/{username}")
-//	@PreAuthorize("hasAnyRole('ADMIN')")
-//	public ResponseEntity<?> getUserInfo(@PathVariable String username) {
-//		return ResponseEntity.ok(userService.getUserWithAuthorities(username).get());
-//	}
+	@GetMapping("/user/{username}")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<?> getUserInfo(@PathVariable String username) {
+		return ResponseEntity.ok(userService.getUserWithAuthorities(username).get());
+	}
 }
