@@ -53,6 +53,12 @@ public class UserController {
 		return ResponseEntity.ok(userService.getEmpInfo());
 	}
 	
+	@GetMapping("/getMember")
+	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	public ResponseEntity<?> getMember() {
+		return ResponseEntity.ok(userService.getMember());
+	}
+	
 
 	@GetMapping("/user")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")
