@@ -37,6 +37,7 @@ public class UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     
+    /*
     @Transactional
     public Account signup(UserDto userDto) {
         if (accountRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
@@ -58,12 +59,13 @@ public class UserService {
 
         return accountRepository.save(user);
     }
+    
 
     @Transactional(readOnly = true)
     public Optional<Account> getUserWithAuthorities(String username) {
         return accountRepository.findOneWithAuthoritiesByUsername(username);
     }
-
+     */
     @Transactional(readOnly = true)
     public Optional<Account> getMyUserWithAuthorities() {
     	return SecurityUtil.getCurrentUsername().flatMap(accountRepository::findOneWithAuthoritiesByUsername);
