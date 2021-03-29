@@ -31,7 +31,7 @@ public class Register {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "reg_id", unique = true, nullable = false)
-	private Long id; 					// 휴가신청 목록코드
+	private Integer id; 					// 휴가신청 목록코드
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
 	@Column(name = "reg_date")

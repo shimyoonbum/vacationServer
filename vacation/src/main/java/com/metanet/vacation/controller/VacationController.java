@@ -16,17 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.metanet.vacation.dto.UserDto;
 import com.metanet.vacation.service.UserService;
+import com.metanet.vacation.service.VacationService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/vacation")
+@RequiredArgsConstructor
 public class VacationController {	
 
     private static final Logger logger = LoggerFactory.getLogger(VacationController.class);
+
+	private final VacationService service;
 	
 	@DeleteMapping("/deleteReg")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	public ResponseEntity<?> getCode(@RequestBody Map<String, Object> list) {
+	public ResponseEntity<?> deleteReg(@RequestBody Map<String, Object> list) throws Exception{
 		logger.info(list.toString());
-		return ResponseEntity.ok(list);
+		service.deleteById(list);
+		return ResponseEntity.ok("Success");
 	}
 }
