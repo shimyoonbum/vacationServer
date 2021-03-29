@@ -20,7 +20,6 @@ import lombok.*;
 public class Code {
 
 	@Id	
-	@Column(unique = true)
 	private String code; // ÄÚµå
 
 	@OneToOne

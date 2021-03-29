@@ -28,7 +28,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Register {
 
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "reg_id", unique = true, nullable = false)
@@ -62,8 +61,9 @@ public class Register {
 	@Column(name = "reject_reason")
 	private String rejectReason;		// 반려 사유	
 	
-	@Column(name = "vk_code")
-	private String vkCode; 				// 휴가유형 코드	
+	@OneToOne
+	@JoinColumn(name = "code")
+	private Code vkCode; 				// 휴가유형 코드	
 
 	@Column(name = "vs_code")
 	private String vsCode;				// 휴가승인 상태코드
