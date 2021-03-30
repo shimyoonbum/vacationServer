@@ -36,13 +36,28 @@ public class VacationService {
     private static final Logger logger = LoggerFactory.getLogger(VacationService.class);
         
     @Transactional
-	public void deleteById(Map<String, Object> list) {
+	public int deleteById(Map<String, Object> list) {
+    	int count = 0;
+    	
     	List<Integer> obj = (List<Integer>) list.get("ids");    
     	String empCode = list.get("code").toString();   
     	
     	for(Integer o : obj) { 
     		int a = registerRepository.deleteById(o, empCode);
-    		logger.debug("delete ¼ö : "+ a);
-    	}		
+    		count += a;    		
+    	}
+    	
+    	return count;
+	}
+    
+	@Transactional
+	public boolean deleteById(Integer id) throws Exception{
+		try {
+			registerRepository.deleteById(id);				
+		}catch(Exception e) {
+			return false;
+		}
+		
+		return true;		
 	}
 }
