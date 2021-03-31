@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,12 +15,16 @@ import org.springframework.web.bind.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.metanet.vacation.dto.UserDto;
+import com.metanet.vacation.dto.VacationApplyDTO;
+import com.metanet.vacation.model.Register;
 import com.metanet.vacation.service.UserService;
 import com.metanet.vacation.service.VacationService;
 
@@ -55,5 +61,24 @@ public class VacationController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}		
 		return new ResponseEntity<>(id, HttpStatus.OK);
+	}
+	//ÈÞ°¡ µî·Ï
+	@PostMapping("/doApply")
+	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	public ResponseEntity<?> doApply(@RequestBody VacationApplyDTO dto) {
+		
+		Register result = service.apply(dto);
+		
+		return ResponseEntity.ok(result);
+	}
+	
+	//ÈÞ°¡ ¼öÁ¤
+	@PutMapping("/doUpdate/{id}")
+	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	public ResponseEntity<?> doUpdate(@RequestBody VacationApplyDTO dto, @PathVariable Integer id) {
+		
+		Register result = service.update(dto, id);
+		
+		return ResponseEntity.ok(dto);
 	}
 }

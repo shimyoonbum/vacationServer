@@ -1,5 +1,6 @@
 package com.metanet.vacation.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -39,11 +40,11 @@ public class Register {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(name = "reg_start_date")
-	private LocalDateTime regStartDate;	// 시작일
+	private LocalDate regStartDate;	// 시작일
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	@Column(name = "reg_end_date")
-	private LocalDateTime regEndDate;	// 종료일
+	private LocalDate regEndDate;	// 종료일
 
 	@Column(name = "reg_num")
 	private Double regNum;				// 휴가일수
