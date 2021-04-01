@@ -33,15 +33,40 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/vacation")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('USER','ADMIN')")
 public class VacationController {	
 
     private static final Logger logger = LoggerFactory.getLogger(VacationController.class);
 
-	private final VacationService service;
+	private final VacationService service;	
+	
+	//ÈÞ°¡ µî·Ï
+	@PostMapping("/doApply")
+	public ResponseEntity<?> doApply(@RequestBody VacationApplyDTO dto) {		
+		Register result = service.apply(dto);
+		
+		return ResponseEntity.ok(result);
+	}
+	
+	//ÈÞ°¡ ¼öÁ¤
+	@PutMapping("/doUpdate/{id}")
+	public ResponseEntity<?> doUpdate(@RequestBody VacationApplyDTO dto, @PathVariable Integer id) {	
+		Map<String, Integer> res = new HashMap<>(); 	
+		int count = 0;
+		
+		try {
+			count = service.update(dto, id);
+		} catch (Exception e) {		
+			res.put("result", 0);
+			return ResponseEntity.ok(res);
+		}		
+		
+		res.put("result", count);
+		return ResponseEntity.ok(res);
+	}
 	
 	//ÀÏ°ý »èÁ¦
 	@DeleteMapping("/deleteReg")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
 	public ResponseEntity<?> deleteReg(@RequestBody Map<String, Object> list) throws Exception{
 		int count = service.deleteById(list);
 		
@@ -52,33 +77,12 @@ public class VacationController {
 
 	//°³º° »èÁ¦
 	@DeleteMapping("/deleteReg/{id}")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	public ResponseEntity<?> deleteOneReg(@PathVariable Integer id) throws Exception{
-		
+	public ResponseEntity<?> deleteOneReg(@PathVariable Integer id) throws Exception{		
 		boolean res = service.deleteById(id);
 		
 		if(!res) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}		
 		return new ResponseEntity<>(id, HttpStatus.OK);
-	}
-	//ÈÞ°¡ µî·Ï
-	@PostMapping("/doApply")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	public ResponseEntity<?> doApply(@RequestBody VacationApplyDTO dto) {
-		
-		Register result = service.apply(dto);
-		
-		return ResponseEntity.ok(result);
-	}
-	
-	//ÈÞ°¡ ¼öÁ¤
-	@PutMapping("/doUpdate/{id}")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	public ResponseEntity<?> doUpdate(@RequestBody VacationApplyDTO dto, @PathVariable Integer id) {
-		
-		Register result = service.update(dto, id);
-		
-		return ResponseEntity.ok(dto);
 	}
 }

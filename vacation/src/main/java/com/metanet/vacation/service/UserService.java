@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -59,25 +60,25 @@ public class UserService {
         return accountRepository.save(user);
     }
 
-    @Transactional(readOnly = true)
-    public Optional<Account> getUserWithAuthorities(String username) {
-        return accountRepository.findOneWithAuthoritiesByUsername(username);
-    }
+//    @Transactional(readOnly = true)
+//    public Optional<Account> getUserWithAuthorities(String username) {
+//        return accountRepository.findOneWithAuthoritiesByUsername(username);
+//    }
 
     @Transactional(readOnly = true)
     public Optional<Account> getMyUserWithAuthorities() {
     	return SecurityUtil.getCurrentUsername().flatMap(accountRepository::findOneWithAuthoritiesByUsername);
     }
     
-    @Transactional(readOnly = true)
-	public List<Account> getUserInfo() {
-    	return accountRepository.findAll();
-	}
-    
-    @Transactional(readOnly = true)
-	public Optional<Code> getCode() {		
-		return codeRepository.findByCode("VK1");
-	}
+//    @Transactional(readOnly = true)
+//	public List<Account> getUserInfo() {
+//    	return accountRepository.findAll();
+//	}
+//    
+//    @Transactional(readOnly = true)
+//	public Optional<Code> getCode() {		
+//		return codeRepository.findByCode("VK1");
+//	}
     
 //    @Transactional(readOnly = true)
 //	public Optional<Register> getRegister() {
@@ -88,9 +89,12 @@ public class UserService {
 	public Employee getEmpInfo() {		
 		return employeeRepository.findByEmpCode("E0013");
 	}
-    
-    @Transactional(readOnly = true)
+
+	@Transactional(readOnly = true)
 	public List<Employee> getMember() {
-    	return employeeRepository.findByEmpCodeOrEmpUpper("E0011", "E0011");
+		String username = SecurityUtil.getCurrentUsername().get();
+		String code = accountRepository.findByUsername(username);
+    	
+		return employeeRepository.findByEmpCodeOrEmpUpper(code, code);
 	}
 }

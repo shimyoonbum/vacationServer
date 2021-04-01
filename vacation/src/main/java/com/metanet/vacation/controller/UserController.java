@@ -22,27 +22,18 @@ public class UserController {
 	
 	private final UserService userService;
 
-	@GetMapping("/hello")
-	public ResponseEntity<?> hello() {
-		return ResponseEntity.ok("hello");
-	}
-
+	//회원 등록
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto) {
 		return ResponseEntity.ok(userService.signup(userDto));
 	}
 	
+	/*
 	@GetMapping("/getCode")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")
 	public ResponseEntity<?> getCode() {
 		return ResponseEntity.ok(userService.getCode().get());
 	}
-	
-//	@GetMapping("/getRegister")
-//	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-//	public ResponseEntity<?> getRegister() {
-//		return ResponseEntity.ok(userService.getRegister().get());
-//	}
 	
 	@GetMapping("/getUserInfo")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")
@@ -55,23 +46,11 @@ public class UserController {
 	public ResponseEntity<?> getEmpInfo() {
 		return ResponseEntity.ok(userService.getEmpInfo());
 	}
-	
-	@GetMapping("/getMember")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	public ResponseEntity<?> getMember() {
-		return ResponseEntity.ok(userService.getMember());
-	}
-	
+	*/
 
 	@GetMapping("/user")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")
 	public ResponseEntity<?> getMyUserInfo() {
 		return ResponseEntity.ok(userService.getMyUserWithAuthorities().get());
-	}
-
-	@GetMapping("/user/{username}")
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	public ResponseEntity<?> getUserInfo(@PathVariable String username) {
-		return ResponseEntity.ok(userService.getUserWithAuthorities(username).get());
 	}
 }

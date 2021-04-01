@@ -18,7 +18,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_employee")
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -50,6 +51,7 @@ public class Employee {
 	private Organization organization;		// 조직코드
 	
 	@OneToOne(mappedBy = "empCode")
+	@JsonIgnoreProperties({"empCode"})
 	private Vacation vacation;				// 휴가
 	
 	@OneToMany(mappedBy = "employee")

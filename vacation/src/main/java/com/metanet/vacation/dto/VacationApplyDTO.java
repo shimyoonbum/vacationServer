@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.validation.*;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
