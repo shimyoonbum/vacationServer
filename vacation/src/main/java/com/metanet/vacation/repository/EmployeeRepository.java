@@ -13,5 +13,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
 	Employee findByEmpCode(String code);
 	
-	List<Employee> findByEmpCodeOrEmpUpper(String code, String code2);
+	List<Employee> findByEmpCodeOrEmpUpper(String code, Employee code2);
 }

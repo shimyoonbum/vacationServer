@@ -88,13 +88,5 @@ public class UserService {
     @Transactional(readOnly = true)
 	public Employee getEmpInfo() {		
 		return employeeRepository.findByEmpCode("E0013");
-	}
-
-	@Transactional(readOnly = true)
-	public List<Employee> getMember() {
-		String username = SecurityUtil.getCurrentUsername().get();
-		String code = accountRepository.findByUsername(username);
-    	
-		return employeeRepository.findByEmpCodeOrEmpUpper(code, code);
-	}
+	}	
 }

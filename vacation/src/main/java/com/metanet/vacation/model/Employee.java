@@ -43,8 +43,9 @@ public class Employee {
 	@Column(name = "join_date")
 	private LocalDateTime joinDate;			// 입사일
 	
-	@Column(name = "emp_upper")
-	private String empUpper;				// 상위자 코드
+	@OneToOne
+	@JoinColumn(name = "emp_upper")
+	private Employee empUpper;				// 상위자 코드
 	
 	@OneToOne
 	@JoinColumn(name = "orgCode")

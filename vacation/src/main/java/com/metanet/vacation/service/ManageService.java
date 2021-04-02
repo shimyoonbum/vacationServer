@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.vacation.dto.UserDto;
+import com.metanet.vacation.dto.VacationApplyDTO;
 import com.metanet.vacation.jwt.JwtTokenProvider;
 import com.metanet.vacation.model.Account;
 import com.metanet.vacation.model.Authority;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -31,16 +33,30 @@ import java.util.Optional;
 public class ManageService {
     private final AccountRepository accountRepository;
     private final EmployeeRepository employeeRepository;
-    private final CodeRepository codeRepository;
     private final RegisterRepository registerRepository;
-    private final PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LoggerFactory.getLogger(ManageService.class);
         
     @Transactional(readOnly = true)
 	public List<Employee> getMember() {
-    	return employeeRepository.findByEmpCodeOrEmpUpper("E0011", "E0011");
+		String username = SecurityUtil.getCurrentUsername().get();
+		String code = accountRepository.findByUsername(username);
+		Employee codeUpper = employeeRepository.findByEmpCode(code);
+    	
+		return employeeRepository.findByEmpCodeOrEmpUpper(code, codeUpper);
 	}
     
-    
+    //휴가 승인/거절 처리
+	@Transactional
+	public int update(Map<String, Object> map, Integer id) throws Exception{
+		Optional<Register> r = registerRepository.findById(id);
+		//수정 일자가 -1일 씩 까이는 문제가 있어서 1일을 더해줌.
+		
+		logger.debug(r.get().toString());
+		r.ifPresent(updReg -> {
+				
+		});		
+
+		return 1;
+	}    
 }
