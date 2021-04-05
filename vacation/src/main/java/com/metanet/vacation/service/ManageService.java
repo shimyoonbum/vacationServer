@@ -15,14 +15,17 @@ import com.metanet.vacation.model.Authority;
 import com.metanet.vacation.model.Code;
 import com.metanet.vacation.model.Employee;
 import com.metanet.vacation.model.Register;
+import com.metanet.vacation.model.Vacation;
 import com.metanet.vacation.repository.AccountRepository;
 import com.metanet.vacation.repository.CodeRepository;
 import com.metanet.vacation.repository.EmployeeRepository;
 import com.metanet.vacation.repository.RegisterRepository;
+import com.metanet.vacation.repository.VacationRepository;
 import com.metanet.vacation.util.SecurityUtil;
 
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +37,7 @@ public class ManageService {
     private final AccountRepository accountRepository;
     private final EmployeeRepository employeeRepository;
     private final RegisterRepository registerRepository;
+    private final VacationRepository vacationRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(ManageService.class);
         
@@ -50,13 +54,29 @@ public class ManageService {
 	@Transactional
 	public int update(Map<String, Object> map, Integer id) throws Exception{
 		Optional<Register> r = registerRepository.findById(id);
-		//수정 일자가 -1일 씩 까이는 문제가 있어서 1일을 더해줌.
+		//휴가 승인시 휴가 승인 처리 및 승인 처리자 select
+		String username = SecurityUtil.getCurrentUsername().get();
+		String code = accountRepository.findByUsername(username);	
 		
-		logger.debug(r.get().toString());
 		r.ifPresent(updReg -> {
-				
+			updReg.setConfirmDate(LocalDateTime.now());
+			updReg.setConfirmEmpCode(code);
+			updReg.setRejectReason(map.get("reason").toString());
+			updReg.setVsCode(map.get("vsCode").toString());
 		});		
-
+		
+		//휴가 승인시에 날짜 삭감 처리하기 위한 로직
+		Employee codeVacation = employeeRepository.findByEmpCode(map.get("empCode").toString());
+		
+		Optional<Vacation> v = vacationRepository.findByEmpCode(codeVacation); 
+		 
+		v.ifPresent(updReg -> {
+			Double d = Double.parseDouble(map.get("regNum").toString());		
+			
+			updReg.setResDaysNum(updReg.getResDaysNum()-d);
+			updReg.setUseDaysNum(updReg.getUseDaysNum()+d);
+		});		
+		
 		return 1;
-	}    
+	}  	
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -37,6 +39,10 @@ public class Vacation implements Serializable{
 
 	@JsonIgnore
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "vac_id", unique = true, nullable = false)
+	private Integer id; 				// 휴가신청 목록코드
+	
 	@OneToOne
 	@JoinColumn(name = "emp_code", unique = true, nullable = false)
 	private Employee empCode;				// 사원 코드

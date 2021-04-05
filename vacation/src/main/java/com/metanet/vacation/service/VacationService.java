@@ -74,7 +74,7 @@ public class VacationService {
 	// 휴가 등록
 	@Transactional
 	public Register apply(VacationApplyDTO dto) {
-
+		//등록 일자가 -1일 씩 까이는 문제가 있어서 1일을 더해줌.
 		Register r = Register.builder()
 				.regDate(LocalDateTime.now())
 				.regReason(dto.getRegReason())
@@ -95,8 +95,8 @@ public class VacationService {
 		Optional<Register> r = registerRepository.findById(id);
 		//수정 일자가 -1일 씩 까이는 문제가 있어서 1일을 더해줌.
 		r.ifPresent(updReg -> {
-				updReg.setRegStartDate(dto.getRegStartDate().plusDays(1));
-				updReg.setRegEndDate(dto.getRegEndDate().plusDays(1));
+				updReg.setRegStartDate(dto.getRegStartDate());
+				updReg.setRegEndDate(dto.getRegEndDate());
 				updReg.setRegReason(dto.getRegReason());
 				updReg.setRegNum(dto.getRegNum());
 				updReg.setVkCode(codeRepository.findByCode(dto.getCode()).get());
