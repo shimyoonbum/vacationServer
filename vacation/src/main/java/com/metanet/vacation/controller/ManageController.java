@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.metanet.vacation.dto.UserDto;
 import com.metanet.vacation.dto.VacationApplyDTO;
+import com.metanet.vacation.exception.BadRequestException;
 import com.metanet.vacation.jwt.JwtTokenProvider;
 import com.metanet.vacation.service.ManageService;
 import com.metanet.vacation.service.UserService;
@@ -32,18 +33,13 @@ public class ManageController {
 		return ResponseEntity.ok(service.getMember());
 	}	
 	
-	//ÈÞ°¡ ¼öÁ¤
+	//ÈÞ°¡ ½ÂÀÎ/¹Ý·Á
 	@PutMapping("/doUpdate/{id}")
-	public ResponseEntity<?> doUpdate(@RequestBody Map<String, Object> map, @PathVariable Integer id) {	
+	public ResponseEntity<?> doUpdate(@RequestBody Map<String, Object> map, @PathVariable Integer id){	
 		Map<String, Integer> res = new HashMap<>(); 	
 		int count = 0;
 		
-		try {
-			count = service.update(map, id);
-		} catch (Exception e) {		
-			res.put("result", 0);
-			return ResponseEntity.ok(res);
-		}		
+		count = service.update(map, id);		
 		
 		res.put("result", count);
 		return ResponseEntity.ok(res);

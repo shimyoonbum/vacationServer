@@ -60,33 +60,8 @@ public class UserService {
         return accountRepository.save(user);
     }
 
-//    @Transactional(readOnly = true)
-//    public Optional<Account> getUserWithAuthorities(String username) {
-//        return accountRepository.findOneWithAuthoritiesByUsername(username);
-//    }
-
     @Transactional(readOnly = true)
     public Optional<Account> getMyUserWithAuthorities() {
     	return SecurityUtil.getCurrentUsername().flatMap(accountRepository::findOneWithAuthoritiesByUsername);
     }
-    
-//    @Transactional(readOnly = true)
-//	public List<Account> getUserInfo() {
-//    	return accountRepository.findAll();
-//	}
-//    
-//    @Transactional(readOnly = true)
-//	public Optional<Code> getCode() {		
-//		return codeRepository.findByCode("VK1");
-//	}
-    
-//    @Transactional(readOnly = true)
-//	public Optional<Register> getRegister() {
-//		return registerRepository.findByApplyEmpCode("E0013");
-//	}
-    
-    @Transactional(readOnly = true)
-	public Employee getEmpInfo() {		
-		return employeeRepository.findByEmpCode("E0013");
-	}	
 }

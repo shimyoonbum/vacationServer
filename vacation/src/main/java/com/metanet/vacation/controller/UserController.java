@@ -27,26 +27,6 @@ public class UserController {
 	public ResponseEntity<?> signup(@Valid @RequestBody UserDto userDto) {
 		return ResponseEntity.ok(userService.signup(userDto));
 	}
-	
-	/*
-	@GetMapping("/getCode")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	public ResponseEntity<?> getCode() {
-		return ResponseEntity.ok(userService.getCode().get());
-	}
-	
-	@GetMapping("/getUserInfo")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	public ResponseEntity<?> getUserInfo() {
-		return ResponseEntity.ok(userService.getUserInfo());
-	}
-	
-	@GetMapping("/getEmpInfo")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
-	public ResponseEntity<?> getEmpInfo() {
-		return ResponseEntity.ok(userService.getEmpInfo());
-	}
-	*/
 
 	@GetMapping("/user")
 	@PreAuthorize("hasAnyRole('USER','ADMIN')")

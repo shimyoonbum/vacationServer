@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.metanet.vacation.dto.UserDto;
 import com.metanet.vacation.dto.VacationApplyDTO;
+import com.metanet.vacation.exception.BadRequestException;
 import com.metanet.vacation.jwt.JwtTokenProvider;
 import com.metanet.vacation.model.Account;
 import com.metanet.vacation.model.Authority;
@@ -52,7 +53,7 @@ public class ManageService {
     
     //휴가 승인/거절 처리
 	@Transactional
-	public int update(Map<String, Object> map, Integer id) throws Exception{
+	public int update(Map<String, Object> map, Integer id) throws BadRequestException{
 		Optional<Register> r = registerRepository.findById(id);
 		//휴가 승인시 휴가 승인 처리 및 승인 처리자 select
 		String username = SecurityUtil.getCurrentUsername().get();
@@ -65,13 +66,19 @@ public class ManageService {
 			updReg.setVsCode(map.get("vsCode").toString());
 		});		
 		
+		if(map.get("vsCode").toString().equals("VS3"))
+			return 1;
 		//휴가 승인시에 날짜 삭감 처리하기 위한 로직
 		Employee codeVacation = employeeRepository.findByEmpCode(map.get("empCode").toString());
 		
 		Optional<Vacation> v = vacationRepository.findByEmpCode(codeVacation); 
 		 
 		v.ifPresent(updReg -> {
+
 			Double d = Double.parseDouble(map.get("regNum").toString());		
+			
+			if(updReg.getResDaysNum()-d < 0)
+				throw new BadRequestException();
 			
 			updReg.setResDaysNum(updReg.getResDaysNum()-d);
 			updReg.setUseDaysNum(updReg.getUseDaysNum()+d);
