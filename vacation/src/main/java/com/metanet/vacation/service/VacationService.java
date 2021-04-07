@@ -93,13 +93,19 @@ public class VacationService {
 	@Transactional
 	public int update(VacationApplyDTO dto, Integer id) throws Exception{
 		Optional<Register> r = registerRepository.findById(id);
-		//수정 일자가 -1일 씩 까이는 문제가 있어서 1일을 더해줌.
+		
 		r.ifPresent(updReg -> {
-				updReg.setRegStartDate(dto.getRegStartDate());
+			//반차 이외에 일수가 1개 까이는 현상 방지
+			if(dto.getCode().equals("VK2")) {
 				updReg.setRegEndDate(dto.getRegEndDate());
-				updReg.setRegReason(dto.getRegReason());
-				updReg.setRegNum(dto.getRegNum());
-				updReg.setVkCode(codeRepository.findByCode(dto.getCode()).get());
+				updReg.setRegStartDate(dto.getRegStartDate());
+			}else {
+				updReg.setRegEndDate(dto.getRegEndDate().plusDays(1));
+				updReg.setRegStartDate(dto.getRegStartDate().plusDays(1));
+			}
+			updReg.setRegReason(dto.getRegReason());				
+			updReg.setRegNum(dto.getRegNum());
+			updReg.setVkCode(codeRepository.findByCode(dto.getCode()).get());
 		});		
 
 		return 1;

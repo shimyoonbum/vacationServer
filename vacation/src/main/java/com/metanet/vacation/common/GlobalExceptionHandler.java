@@ -1,5 +1,8 @@
 package com.metanet.vacation.common;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,7 +16,8 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Object> error400(BadRequestException e) {
-		
-        return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST) ;
+		Map<String, Object> resBody = new HashMap<>();
+		resBody.put("result", e.getMessage());
+        return new ResponseEntity<>(resBody, e.getStatus());
     }
 }

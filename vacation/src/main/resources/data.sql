@@ -83,6 +83,17 @@ INSERT INTO vacation.tb_account_authority (user_id,authority_name) VALUES
 ,('ID0015','ROLE_USER')
 ,('ID0016','ROLE_USER');
 
+INSERT INTO vacation.tb_account_authority (user_id,authority_name) VALUES 
+('ID0001','ROLE_ADMIN')
+,('ID0002','ROLE_ADMIN')
+,('ID0003','ROLE_ADMIN')
+,('ID0004','ROLE_ADMIN')
+,('ID0005','ROLE_ADMIN')
+,('ID0008','ROLE_ADMIN')
+,('ID0012','ROLE_ADMIN')
+,('ID0013','ROLE_ADMIN')
+,('ID0015','ROLE_ADMIN')
+,('ID0016','ROLE_ADMIN');
 
 INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0001','2019',15,0,15);
 INSERT INTO vacation.tb_vacation_management (emp_code,`year`,ACQ_DAYS_NUM,USE_DAYS_NUM,RES_DAYS_NUM) VALUES ('E0002','2019',15,0,15);

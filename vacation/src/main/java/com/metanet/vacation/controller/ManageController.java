@@ -36,12 +36,9 @@ public class ManageController {
 	//ÈŞ°¡ ½ÂÀÎ/¹İ·Á
 	@PutMapping("/doUpdate/{id}")
 	public ResponseEntity<?> doUpdate(@RequestBody Map<String, Object> map, @PathVariable Integer id){	
-		Map<String, Integer> res = new HashMap<>(); 	
-		int count = 0;
+		Map<String, Integer> res = new HashMap<>(); 
 		
-		count = service.update(map, id);		
-		
-		res.put("result", count);
+		res.put("result", service.update(map, id));
 		return ResponseEntity.ok(res);
 	}
 }

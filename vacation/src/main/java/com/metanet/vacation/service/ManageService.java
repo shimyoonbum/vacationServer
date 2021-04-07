@@ -2,6 +2,7 @@ package com.metanet.vacation.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -78,7 +79,7 @@ public class ManageService {
 			Double d = Double.parseDouble(map.get("regNum").toString());		
 			
 			if(updReg.getResDaysNum()-d < 0)
-				throw new BadRequestException();
+				throw new BadRequestException(HttpStatus.BAD_REQUEST, "사용 가능 연차 수 초과");
 			
 			updReg.setResDaysNum(updReg.getResDaysNum()-d);
 			updReg.setUseDaysNum(updReg.getUseDaysNum()+d);

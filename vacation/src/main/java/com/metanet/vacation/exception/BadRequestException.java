@@ -1,24 +1,19 @@
 package com.metanet.vacation.exception;
 
+import org.springframework.http.HttpStatus;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class BadRequestException extends RuntimeException {
-    private String errorCode;
-
-    /**
-     * default 400 Error
-     */
-    public BadRequestException() {
-        this.errorCode = "400";
-    }
-
-    /**
-     * Error Code ÁöÁ¤
-     * @param code
-     */
-    public BadRequestException(String code) {
-        this.errorCode = code;
-    }
-
-    public String getErrorCode() {
-        return errorCode;
-    }
+	
+	private static final long serialVersionUID = 1L;
+	
+	private HttpStatus status;
+	private String message;
+	
 }
