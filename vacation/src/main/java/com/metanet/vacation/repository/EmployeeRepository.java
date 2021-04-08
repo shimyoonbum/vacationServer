@@ -12,6 +12,7 @@ import com.metanet.vacation.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, String> {	
 
 	Employee findByEmpCode(String code);
-	
+
+//	@EntityGraph(attributePaths = {"employee", "empCode"})
 	List<Employee> findByEmpCodeOrEmpUpper(String code, Employee code2);
 }

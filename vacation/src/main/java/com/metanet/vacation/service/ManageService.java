@@ -29,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,12 +45,22 @@ public class ManageService {
     private static final Logger logger = LoggerFactory.getLogger(ManageService.class);
         
     @Transactional(readOnly = true)
-	public List<Employee> getMember() {
+	public Map<String, Object> getMember() {
+    	
+		Map<String, Object> member = new HashMap<>();
+		
 		String username = SecurityUtil.getCurrentUsername().get();
 		String code = accountRepository.findByUsername(username);
 		Employee codeUpper = employeeRepository.findByEmpCode(code);
-    	
-		return employeeRepository.findByEmpCodeOrEmpUpper(code, codeUpper);
+		
+//		List<Map<String, Object>> auth = ;
+//		logger.info(auth.toString());
+//		List<Employee> emp = ;
+		
+		member.put("authorities", accountRepository.findAuthoritiesByUsername(username));
+		member.put("emp", employeeRepository.findByEmpCodeOrEmpUpper(code, codeUpper));
+				
+		return member;
 	}
     
     //ÈÞ°¡ ½ÂÀÎ/°ÅÀý Ã³¸®
