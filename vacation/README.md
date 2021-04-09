@@ -16,3 +16,8 @@ Spring Boot
 JPA
 Spring Security + JWT
 Swagger UI
+```
+## DB 설계도
+<img width="692" 
+alt="데이터 모델링 관계도" 
+src="https://user-images.githubusercontent.com/56707897/114117372-84728400-9921-11eb-97fe-d0a9c5c844b8.PNG">
