@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.metanet.vacation.dto.LoginDto;
-import com.metanet.vacation.dto.TokenDto;
+import com.metanet.vacation.dto.ResponseDto;
 import com.metanet.vacation.jwt.JwtFilter;
 import com.metanet.vacation.jwt.JwtTokenProvider;
 
 import lombok.RequiredArgsConstructor;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
@@ -30,7 +31,7 @@ public class AuthController {
     private final AuthenticationManagerBuilder authenticationManager;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<?> authorize(@Valid @RequestBody LoginDto loginDto, HttpServletResponse response) {
     	
     	// id와 pw 받아서 로그인 시도함. AuthenticationManager로 로그인시도하면
     	// PrincipalDetailsService의 loadUserByUsername이 실행됩니다.
@@ -46,6 +47,8 @@ public class AuthController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
-        return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+        return ResponseEntity.ok()
+        		.headers(httpHeaders)
+        		.body(new ResponseDto<String>(HttpStatus.OK.value(), jwt));
     }
 }
